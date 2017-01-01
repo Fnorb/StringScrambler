@@ -1,3 +1,3 @@
 # StringScrambler
 
-Demo: https://fnorb.github.io/string-scrambler/
+Demo: not set up yet
