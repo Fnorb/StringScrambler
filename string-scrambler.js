@@ -8,15 +8,27 @@ function StringScrambler() {
     this.sleepTime = 0; //break after complete transitions in ms
     this.diffLetters = []; //array of letters that still need to be changed to complete transition
     this.intervallID = 0; //id of the interval doing the transition
+    this.outputElement;
     //this.stopCondition = -1; //when the scrambling stops for good. values: -1 = never, 0 = after each string has been scrambled once, >0 = after that many scrambles
 
     this.go = function() {
-        if(this.strList.length < 2) {
-            console.log("strList needs at least two different Strings");
+        var readyToGo = true;
+
+        if(this.outputElement == undefined) {
+            console.log("outputElement variable needs an Element. Current content: ",this.outputElement);
+            readyToGo = false;
         }
-        else if(this.strList[0] == this.strList[1] && this.strList.length == 2)
-            console.log("strList needs at least two different Strings");
-        else {
+
+        if(this.strList.length < 2) {
+            console.log("strList variable needs at least two different Strings. Current content: ", this.strList);
+            readyToGo = false;
+        }
+        else if(this.strList[0] == this.strList[1] && this.strList.length == 2) {
+            console.log("strList variable needs at least two different Strings. Current content: ", this.strList);
+            readyToGo = false;
+        }
+
+        if(readyToGo) {
 
             if(this.randomIdOrder) {
                 this.targetStringId = Math.floor(Math.random() * this.strList.length);
@@ -38,7 +50,7 @@ function StringScrambler() {
             this.adjustStringContent();
             this.adjustStringSize();
 
-            document.getElementsByClassName("output")[0].innerHTML = this.currentString;
+            this.outputElement.innerHTML = this.currentString;
         }
 
     }.bind(this);
